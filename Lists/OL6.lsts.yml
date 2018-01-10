@@ -1,0 +1,44 @@
+﻿List:
+  Name:               test3
+  Stored As:          Repository
+
+  Objects:
+  - D2_Main:
+      Type:               Web Page
+
+  - CustomerPhoneNumber:
+      Type:               Field
+
+  - Customer:
+      Type:               Field
+
+  - LoggedDate:
+      Type:               Field
+
+  - ProblemDescription:
+      Type:               Field
+
+  - TicketNumber:
+      Type:               Field
+
+  - AFile2:
+      Type:               File
+      Qualifier:          DC@DEMOLIB
+
+  - D2_Session:
+      Type:               Server Module
+
+  - D2_IssuesServer:
+      Type:               Server Module
+
+  - D2_SignIn:
+      Type:               Dialog
+
+  - D2_IssuesDetails:
+      Type:               Dialog
+
+  - D2_Settings:
+      Type:               View
+
+  - D2_Issues:
+      Type:               View

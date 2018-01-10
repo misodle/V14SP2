@@ -1,0 +1,129 @@
+﻿Web View:
+  Name:               D2_Issues
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Issues"
+
+  - FRA:
+      Description:        "Issues"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_VIEW) Displayposition(1) Height(449) Width(633) Layoutmanager(#LayoutMain) Caption('Issues') Tabposition(1)
+    
+    * dummy change
+    Define_Com Class(#prim_alph) Name(#mod001)
+    
+    * Layout - Main
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutRow2) Displayposition(1) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutColumn2) Displayposition(1) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItemMain1) Column(#LayoutColumn2) Manage(#List) Parent(#LayoutMain) Row(#LayoutRow2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItemMain2) Alignment(BottomRight) Column(#LayoutColumn2) Manage(#CreateButton) Parent(#LayoutMain) Row(#LayoutRow2) Sizing(None) Marginbottom(16) Marginright(16)
+    
+    * Layout - List Item
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutList)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutRow1) Displayposition(1) Parent(#LayoutList)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutColumn1) Displayposition(1) Parent(#LayoutList)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItem1) Alignment(CenterLeft) Column(#LayoutRow1) Manage(#ListImage) Marginleft(20) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(None)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItem2) Alignment(CenterLeft) Column(#LayoutRow1) Flow(CenterVertical) Manage(#ListProblemDescription) Marginleft(86) Marginright(16) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(FitToWidth)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItem3) Alignment(CenterLeft) Column(#LayoutRow1) Flow(CenterVertical) Manage(#ListLoggedDate) Marginleft(86) Marginright(16) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(FitToWidth)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItem4) Alignment(CenterLeft) Column(#LayoutRow1) Flow(CenterVertical) Manage(#ListCustomer) Marginleft(86) Marginright(16) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(FitToWidth)
+    
+    * Controls - List
+    Define_Com Class(#PRIM_MD.List) Name(#List) Displayposition(2) Layoutmanager(#LayoutList) Left(0) Parent(#COM_OWNER) Rowheight(88) Tabposition(1) Top(0) Height(449) Width(633)
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListImage) Displayposition(1) Icon('image') Left(20) Parent(#List) Tabposition(1) Top(19) Iconheight(22) Height(50) Width(50) Themedrawstyle('MediumTitle+Rounded') Iconalignment(Center)
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListProblemDescription) Caption('Problem Description') Displayposition(3) Height(20) Left(86) Parent(#List) Tabposition(3) Top(14) Width(531) Source(#ProblemDescription)
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListLoggedDate) Caption('Logged Date') Displayposition(5) Height(20) Left(86) Parent(#List) Tabposition(4) Top(34) Width(531) Source(#LoggedDate) Themedrawstyle('ForegroundSecondary')
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListCustomer) Caption('Customer') Displayposition(6) Height(20) Left(86) Parent(#List) Tabposition(6) Top(54) Width(531) Source(#Customer) Themedrawstyle('ForegroundSecondary')
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListTicketNumber) Displayposition(4) Height(0) Left(0) Parent(#List) Tabposition(5) Top(0) Width(0) Source(#TicketNumber) Visible(False)
+    
+    * Controls - Create Button
+    Define_Com Class(#PRIM_MD.ActionButton) Name(#CreateButton) Displayposition(1) Icon('add') Left(561) Parent(#COM_OWNER) Tabposition(2) Top(377) Themedrawstyle('DarkAccent') Tabstop(False)
+    
+    * Filter, exposed as a property
+    Define_Com Class(#STD_STRNG) Name(#Filter)
+    Define_Pty Name(Filter) Get(*AUTO #Filter) Set(SetFilter)
+    
+    * ***************** *
+    * Property Routines *
+    * ***************** *
+    
+    Ptyroutine Name(SetFilter)
+    Define_Map For(*INPUT) Class(#STD_STRNG) Name(#Value)
+    
+    #Filter := #Value
+    
+    If (#COM_OWNER.IsActiveView)
+    
+    #COM_OWNER.Refresh
+    
+    Endif
+    
+    Endroutine
+    
+    * ************** *
+    * Event Routines *
+    * ************** *
+    
+    Evtroutine Handling(#COM_OWNER.Prepare)
+    
+    #Filter := ""
+    
+    #COM_OWNER.Refresh
+    
+    Endroutine
+    
+    Evtroutine Handling(#List.ItemClick)
+    
+    #COM_OWNER.ShowCurrentItem
+    
+    Endroutine
+    
+    Evtroutine Handling(#CreateButton.Click)
+    
+    #COM_OWNER.Create
+    
+    Endroutine
+    
+    * *************** *
+    * Method Routines *
+    * *************** *
+    
+    Mthroutine Name(Refresh) Access(*PRIVATE)
+    Define_Com Class(#D2_IssuesServer.Find) Name(#Find)
+    
+    Clr_List
+    
+    #Find.ExecuteAsync( #Filter #List )
+    
+    Endroutine
+    
+    Mthroutine Name(Create) Access(*PRIVATE)
+    Define_Com Class(#D2_IssuesDetails) Name(#Details)
+    
+    #Details.Create
+    
+    Evtroutine Handling(#Details.ItemSaved)
+    
+    #COM_OWNER.Refresh
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(ShowCurrentItem) Access(*PRIVATE)
+    Define_Com Class(#D2_IssuesDetails) Name(#Details)
+    
+    #Details.ShowItem( #TicketNumber )
+    
+    Evtroutine Handling(#Details.ItemDeleted #Details.ItemSaved)
+    
+    #COM_OWNER.Refresh
+    
+    Endroutine
+    
+    Endroutine
+    
+    End_Com

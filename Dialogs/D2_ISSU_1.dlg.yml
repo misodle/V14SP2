@@ -1,0 +1,189 @@
+﻿Web Dialog:
+  Name:               D2_IssuesDetails
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Issues Details"
+
+  - FRA:
+      Description:        "Issues Details"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_DLG) Height(561) Width(808) Layoutmanager(#LayoutMain) Autoclose(True)
+    
+    * dummy change
+    Define_Com Class(#prim_alph) Name(#mod001)
+    
+    * Layout - Main
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn1) Displayposition(1) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow1) Displayposition(1) Parent(#LayoutMain) Height(56) Units(Content)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow2) Displayposition(2) Parent(#LayoutMain) Height(10) Units(Content)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow3) Displayposition(3) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem1) Column(#LayoutMainColumn1) Manage(#Appbar) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(FitToWidth) Alignment(TopCenter)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem2) Manage(#Details) Parent(#LayoutMain) Row(#LayoutMainRow3) Column(#LayoutMainColumn1)
+    
+    * Layout - App Bar
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutAppBar)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAppBarRow1) Displayposition(1) Parent(#LayoutAppBar)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutAppBarColumn1) Displayposition(1) Parent(#LayoutAppBar)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppBarItem1) Column(#LayoutAppBarColumn1) Flow(Left) Manage(#DeleteIcon) Parent(#LayoutAppBar) Row(#LayoutAppBarRow1) Sizing(None) Alignment(CenterRight)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppBarItem2) Column(#LayoutAppBarColumn1) Flow(Left) Manage(#SaveIcon) Parent(#LayoutAppBar) Row(#LayoutAppBarRow1) Sizing(None) Alignment(CenterRight)
+    
+    * Layout - Details
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutDetails)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutDetailsRow1) Displayposition(1) Parent(#LayoutDetails)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutDetailsColumn1) Displayposition(1) Parent(#LayoutDetails)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItemErrorText) Manage(#ErrorText) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(ContentHeightFitToWidth) Column(#LayoutDetailsColumn1) Alignment(TopCenter) Flow(Down)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem1) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#TicketNumber) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem2) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#ProblemDescription) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem3) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#LoggedDate) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem4) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#Customer) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem5) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#CustomerPhoneNumber) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    
+    * Controls - App Bar
+    Define_Com Class(#PRIM_MD.AppBar) Name(#Appbar) Displayposition(1) Icon('arrow_back') Parent(#COM_OWNER) Tabposition(2) Width(806) Layoutmanager(#LayoutAppBar) Caption('Details') Themedrawstyle('Heading1')
+    Define_Com Class(#PRIM_MD.Icon) Name(#SaveIcon) Displayposition(1) Left(758) Parent(#Appbar) Tabposition(1) Top(0) Height(57) Icon('check')
+    Define_Com Class(#PRIM_MD.Icon) Name(#DeleteIcon) Displayposition(2) Icon('delete_forever') Left(710) Parent(#Appbar) Tabposition(2) Top(0) Height(57)
+    
+    * Controls - Details
+    Define_Com Class(#PRIM_PANL) Name(#Details) Displayposition(2) Height(493) Imagealignment(Stretch) Parent(#COM_OWNER) Tabposition(1) Top(66) Width(806) Verticalscroll(True) Layoutmanager(#LayoutDetails) Left(0)
+    Define_Com Class(#PRIM_MD.Label) Name(#ErrorText) Caption('Errors') Displayposition(1) Left(0) Parent(#Details) Tabposition(3) Height(49) Width(806) Captionmarginleft(0) Captionmarginbottom(0) Captionalignment(TopLeft) Captionmarginright(0) Captionmargintop(0) Paddingbottom(16) Paddingtop(16) Paddingright(16) Paddingleft(16) Themedrawstyle('LightError') Iconheight(32) Top(0) Visible(False)
+    Define_Com Class(#TicketNumber.SpinEditField) Name(#TicketNumber) Displayposition(2) Label('Ticket Number') Parent(#Details) Readonly(True) Tabposition(1) Left(16) Top(49) Width(774)
+    Define_Com Class(#ProblemDescription.EditField) Name(#ProblemDescription) Displayposition(3) Label('Problem Description') Parent(#Details) Tabposition(2) Left(16) Top(124) Width(774)
+    Define_Com Class(#LoggedDate.DateField) Name(#LoggedDate) Displayposition(4) Label('Logged Date') Parent(#Details) Tabposition(4) Left(16) Top(199) Width(774)
+    Define_Com Class(#Customer.EditField) Name(#Customer) Displayposition(5) Label('Customer') Parent(#Details) Tabposition(5) Left(16) Top(274) Width(774)
+    Define_Com Class(#CustomerPhoneNumber.EditField) Name(#CustomerPhoneNumber) Displayposition(6) Label('Phone Number') Parent(#Details) Tabposition(6) Left(16) Top(349) Width(774)
+    
+    Group_By Name(#Fields) Fields(#TicketNumber #ProblemDescription #LoggedDate #Customer #CustomerPhoneNumber)
+    
+    Define_Evt Name(ItemSaved)
+    Define_Evt Name(ItemDeleted)
+    
+    * ****************
+    * Event Routines *
+    * ****************
+    
+    Evtroutine Handling(#COM_OWNER.CreateInstance #SYS_WEB.DeviceChanged)
+    
+    If (#SYS_WEB.Device = Mobile)
+    
+    #COM_OWNER.Placement := FullScreen
+    
+    Else
+    
+    #COM_OWNER.Placement := Center
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#Appbar.IconClick)
+    
+    #Com_Owner.Close
+    
+    Endroutine
+    
+    Evtroutine Handling(#SaveIcon.Click)
+    
+    #COM_OWNER.Save
+    
+    Endroutine
+    
+    Evtroutine Handling(#DeleteIcon.Click)
+    
+    #COM_OWNER.Delete
+    
+    Endroutine
+    
+    * *****************
+    * Method Routines *
+    * *****************
+    
+    Mthroutine Name(Create)
+    
+    Set Com(#TicketNumber) Readonly(False)
+    
+    Set Com(#DeleteIcon) Visible(False)
+    
+    #COM_OWNER.Show
+    
+    Endroutine
+    
+    Mthroutine Name(ShowItem)
+    Define_Map For(*INPUT) Class(#TicketNumber) Name(#Key1)
+    
+    Define_Com Class(#D2_IssuesServer.Read) Name(#Read)
+    
+    Set Com(#Details #SaveIcon #DeleteIcon) Visible(False)
+    
+    #Read.ExecuteAsync( #Key1 #Fields )
+    
+    #COM_OWNER.Show
+    
+    Evtroutine Handling(#Read.Completed)
+    
+    Set Com(#Details #SaveIcon #DeleteIcon) Visible(True)
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(Save) Access(*PRIVATE)
+    
+    Define_Com Class(#D2_IssuesServer.Save) Name(#Save)
+    
+    #SYS_MSGQ.ClearAll
+    
+    #ErrorText.Visible := False
+    
+    #Save.ExecuteAsync( #Fields #IO$STS )
+    
+    Evtroutine Handling(#Save.Completed)
+    
+    If (#IO$STS = "OK")
+    
+    #COM_OWNER.Close
+    
+    Signal Event(ItemSaved)
+    
+    Else
+    
+    #ErrorText.Caption := ""
+    
+    For Each(#Message) In(#SYS_MSGQ.Messages)
+    
+    #ErrorText.Caption += #Message.Text + (10).AsUnicodeString
+    
+    Endfor
+    
+    #ErrorText.Visible := True
+    
+    #Details.VerticalScrollPos := 0
+    
+    Endif
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(Delete) Access(*PRIVATE)
+    
+    Define_Com Class(#D2_IssuesServer.Delete) Name(#Delete)
+    
+    #ErrorText.Visible := False
+    
+    #Delete.ExecuteAsync( #TicketNumber )
+    
+    Evtroutine Handling(#Delete.Completed)
+    
+    #COM_OWNER.Close
+    
+    Signal Event(ItemDeleted)
+    
+    Endroutine
+    
+    Endroutine
+    
+    End_Com

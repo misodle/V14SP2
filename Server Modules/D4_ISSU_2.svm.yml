@@ -1,0 +1,66 @@
+﻿ServerModule:
+  Name:               D4_IssuesServer
+  Target Platform:    Windows/IBM i/Linux
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Issues Server"
+
+  - FRA:
+      Description:        "Issues Server"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_SRVM) Sessionidentifier('D4_SESSION')
+    
+    Def_List Name(#List) Fields(#TicketNumber #ProblemDescription #LoggedDate #Customer) Type(*WORKING) Entrys(*MAX)
+    
+    Group_By Name(#Fields) Fields(#TicketNumber #ProblemDescription #LoggedDate #Customer #CustomerPhoneNumber)
+    
+    Srvroutine Name(Find) Session(*REQUIRED)
+    Field_Map For(*INPUT) Field(#STD_STRNG) Parameter_Name(Filter)
+    List_Map For(*OUTPUT) List(#List)
+    
+    #STD_STRNG := #STD_STRNG.UpperCase.Trim
+    
+    Select Fields(#List) From_File(AFile2) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    If ((#STD_STRNG = *BLANKS) *OrIf (#ProblemDescription.UpperCase.Contains( #STD_STRNG )) *OrIf (#Customer.UpperCase.Contains( #STD_STRNG )))
+    
+    Add_Entry To_List(#List)
+    
+    Endif
+    
+    Endselect
+    
+    Endroutine
+    
+    Srvroutine Name(Read) Session(*REQUIRED)
+    Field_Map For(*INPUT) Field(#TicketNumber)
+    Group_Map For(*OUTPUT) Group(#Fields)
+    
+    Fetch Fields(#Fields) From_File(AFile2) With_Key(#TicketNumber) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    Endroutine
+    
+    Srvroutine Name(Save) Session(*REQUIRED)
+    Group_Map For(*INPUT) Group(#Fields)
+    Field_Map For(*OUTPUT) Field(#IO$STS) Parameter_Name(ReturnCode)
+    
+    Update Fields(#Fields) In_File(AFile2) With_Key(#TicketNumber) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    If_Status Is(*NORECORD)
+    
+    Insert Fields(#Fields) To_File(AFile2) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    Endif
+    
+    Endroutine
+    
+    Srvroutine Name(Delete) Session(*REQUIRED)
+    Field_Map For(*INPUT) Field(#TicketNumber)
+    
+    Delete From_File(AFile2) With_Key(#TicketNumber) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    Endroutine
+    
+    End_Com

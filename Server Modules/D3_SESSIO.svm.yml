@@ -1,0 +1,38 @@
+﻿ServerModule:
+  Name:               D3_Session
+  Target Platform:    Windows/IBM i/Linux
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Application Session"
+
+  - FRA:
+      Description:        "Application Session"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_SRVM) Sessionidentifier('D3_SESSION')
+    
+    Define Field(#D3_UserName) Type(*STRING)
+    Define Field(#D3_Password) Type(*STRING)
+    Define Field(#D3_ReturnCode) Type(*CHAR) Length(2)
+    
+    Srvroutine Name(SignIn)
+    Field_Map For(*INPUT) Field(#D3_UserName) Parameter_Name(UserName)
+    Field_Map For(*INPUT) Field(#D3_Password) Parameter_Name(Password)
+    Field_Map For(*OUTPUT) Field(#D3_ReturnCode) Parameter_Name(ReturnCode)
+    
+    * TODO: Check username and password
+    
+    #COM_OWNER.StartSession Timeout(3600)
+    
+    #D3_ReturnCode := OK
+    
+    Endroutine
+    
+    Srvroutine Name(SignOut) Session(*REQUIRED)
+    
+    #COM_OWNER.EndSession
+    
+    Endroutine
+    
+    End_Com

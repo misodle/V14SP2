@@ -1,0 +1,41 @@
+﻿List:
+  Name:               TEST2
+  Stored As:          Repository
+
+  Objects:
+  - CustomerPhoneNumber:
+      Type:               Field
+
+  - Customer:
+      Type:               Field
+
+  - LoggedDate:
+      Type:               Field
+
+  - ProblemDescription:
+      Type:               Field
+
+  - TicketNumber:
+      Type:               Field
+
+  - AFile1:
+      Type:               File
+      Qualifier:          DC@DEMOLIB
+
+  - D1_Main:
+      Type:               Web Page
+
+  - D1_Add_Ticket:
+      Type:               Dialog
+
+  - D1_View3:
+      Type:               View
+
+  - D1_View2:
+      Type:               View
+
+  - D1_View1:
+      Type:               View
+
+  - A001x:
+      Type:               Web Page

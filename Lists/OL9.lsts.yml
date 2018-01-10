@@ -1,0 +1,25 @@
+﻿List:
+  Name:               Issues3
+  Stored As:          Repository
+
+  Objects:
+  - D4_Session:
+      Type:               Server Module
+
+  - D4_IssuesServer:
+      Type:               Server Module
+
+  - D4_SignIn:
+      Type:               Dialog
+
+  - D4_IssuesDetails:
+      Type:               Dialog
+
+  - D4_Settings:
+      Type:               View
+
+  - D4_Issues:
+      Type:               View
+
+  - D4_Main:
+      Type:               Web Page

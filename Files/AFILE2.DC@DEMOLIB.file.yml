@@ -1,0 +1,118 @@
+﻿File:
+  Name:                           AFile2
+  File Type:                      LANSA File
+  Library:                        DC@DEMOLIB
+  Record Format Name:             AFILE2
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Ticket File2"
+
+  - FRA:
+      Description:        "Ticket File2"
+
+  Real Fields:
+  - TICKETNUM:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - PROBLEMDE:
+      Type:               NVarChar
+      Length:             65535
+      Decimals:           0
+
+  - LOGGEDDAT:
+      Type:               Date Time
+      Length:             26
+      Decimals:           0
+
+  - CUSTOMER:
+      Type:               Alphanumeric
+      Length:             50
+      Decimals:           0
+
+  - CUSTOMERP:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  Primary Keys:
+  - TICKETNUM
+
+  File Level Validation Rules:
+  - TICKETNUM:
+    - Simple Logic Check:
+        Description:        "Must be > zero"
+        Condition:          "#TicketNumber > *Zero"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "TicketNumber must be greater than zero"
+
+  - PROBLEMDE:
+    - Simple Logic Check:
+        Description:        "Cannot be empty"
+        Condition:          "#ProblemDescription.Cursize = 0"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Error
+        Negative Action:    Next
+        Message Text:       "ProblemDescription cannot be empty"
+
+  - LOGGEDDAT:
+    - Simple Logic Check:
+        Description:        "Cannot be SQLNull"
+        Condition:          "#LoggedDate.isSQLNull"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Error
+        Negative Action:    Next
+        Message Text:       "LoggedDate cannot be SQLNull"
+
+  - CUSTOMER:
+    - Simple Logic Check:
+        Description:        "Cannot be empty"
+        Condition:          "#Customer = *BLANKS"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Error
+        Negative Action:    Next
+        Message Text:       "Customer cannot be empty"
+
+  - CUSTOMERP:
+    - Simple Logic Check:
+        Description:        "Cannot be blank"
+        Condition:          "#CustomerPhoneNumber = *Blanks"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Error
+        Negative Action:    Next
+        Message Text:       "CustomerPhoneNumber cannot be blank"

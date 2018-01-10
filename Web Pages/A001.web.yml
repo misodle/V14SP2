@@ -1,0 +1,33 @@
+﻿Web Page:
+  Name:               a001
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "TEST"
+
+  - FRA:
+      Description:        "TEST"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_WEB) Theme(#SYS_THEME<MaterialDesignBlue>)
+    
+    Define_Com Class(#PRIM_LABL) Name(#Label1) Caption('TEST2') Displayposition(1) Ellipses(Word) Height(25) Left(257) Parent(#COM_OWNER) Tabposition(1) Tabstop(False) Top(208) Verticalalignment(Center) Width(120)
+    
+    Evtroutine Handling(#Com_owner.Initialize)
+    
+    Endroutine
+    
+    End_Com
+
+  Offline Support:    No
+  Allow Zoom:         Yes
+
+  Loading Screen:
+    Image:              Spinner
+
+    Multilingual Text:
+    - ENG:
+        Text:               "Loading..."
+    - FRA:
+        Text:               "Loading..."

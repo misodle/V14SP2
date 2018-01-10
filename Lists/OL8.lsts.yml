@@ -1,0 +1,25 @@
+﻿List:
+  Name:               Issues2
+  Stored As:          Repository
+
+  Objects:
+  - D3_Session:
+      Type:               Server Module
+
+  - D3_IssuesServer:
+      Type:               Server Module
+
+  - D3_SignIn:
+      Type:               Dialog
+
+  - D3_IssuesDetails:
+      Type:               Dialog
+
+  - D3_Settings:
+      Type:               View
+
+  - D3_Issues:
+      Type:               View
+
+  - D3_Main:
+      Type:               Web Page

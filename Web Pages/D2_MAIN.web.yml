@@ -1,0 +1,152 @@
+﻿Web Page:
+  Name:               D2_Main
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Issues"
+
+  - FRA:
+      Description:        "Issues"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_WEB) Theme(#SYS_THEME<MaterialDesignGreen>) Layoutmanager(#LayoutMain) Style(#StyleMain)
+    
+    * dummy change
+    
+    * Styles
+    Define_Com Class(#PRIM_VS.Style) Name(#StyleAppDrawer) Borderright(0)
+    Define_Com Class(#PRIM_VS.Style) Name(#StyleHeader) Backgroundbrush(#BrushHeader)
+    Define_Com Class(#PRIM_VS.SolidBrush) Name(#BrushHeader) Color(Theme700)
+    Define_Com Class(#PRIM_VS.Style) Name(#StyleMain) Backgroundbrush(#BrushMain)
+    Define_Com Class(#PRIM_VS.SolidBrush) Name(#BrushMain) Color(Theme400)
+    
+    * Layout - Main
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn1) Displayposition(1) Parent(#LayoutMain) Units(Pixels) Width(220)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn2) Displayposition(2) Parent(#LayoutMain) Units(Pixels) Width(8)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn3) Displayposition(3) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn4) Displayposition(4) Parent(#LayoutMain) Units(Pixels) Width(8)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow1) Displayposition(1) Parent(#LayoutMain) Units(Pixels) Height(80)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow2) Displayposition(2) Parent(#LayoutMain) Height(20) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow3) Displayposition(3) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem1) Column(#LayoutMainColumn1) Manage(#PanelHeader) Parent(#LayoutMain) Row(#LayoutMainRow1) Columnspan(4) Rowspan(2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem2) Column(#LayoutMainColumn1) Manage(#AppDrawer) Parent(#LayoutMain) Row(#LayoutMainRow1) Rowspan(3) Columnspan(2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem3) Column(#LayoutMainColumn3) Manage(#SearchString) Parent(#LayoutMain) Sizing(FitToWidth) Row(#LayoutMainRow1)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem4) Column(#LayoutMainColumn3) Manage(#ViewContainer) Parent(#LayoutMain) Row(#LayoutMainRow2) Rowspan(2)
+    
+    * Layout - App Drawer
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutAppDrawer)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAppDrawerRow1) Displayposition(1) Parent(#LayoutAppDrawer)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutAppDrawerColumn1) Displayposition(1) Parent(#LayoutAppDrawer)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppDrawerItem1) Alignment(TopCenter) Column(#LayoutAppDrawerColumn1) Manage(#ApplicationName) Parent(#LayoutAppDrawer) Row(#LayoutAppDrawerRow1) Sizing(FitToWidth) Flow(Down)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppDrawerItem2) Column(#LayoutAppDrawerColumn1) Manage(#NavButton1) Parent(#LayoutAppDrawer) Row(#LayoutAppDrawerRow1) Sizing(FitToWidth) Flow(Down) Alignment(TopCenter)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppDrawerItem3) Column(#LayoutAppDrawerColumn1) Manage(#NavButtonSettings) Parent(#LayoutAppDrawer) Row(#LayoutAppDrawerRow1) Sizing(FitToWidth) Flow(Down) Alignment(TopCenter)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppDrawerItem4) Column(#LayoutAppDrawerColumn1) Manage(#NavButtonSignOut) Parent(#LayoutAppDrawer) Row(#LayoutAppDrawerRow1) Sizing(FitToWidth) Flow(Down) Alignment(TopCenter)
+    
+    * Controls - Main
+    Define_Com Class(#PRIM_PANL) Name(#PanelHeader) Displayposition(4) Height(100) Parent(#COM_OWNER) Tabposition(4) Tabstop(False) Top(0) Width(1200) Left(0) Style(#StyleHeader)
+    Define_Com Class(#PRIM_MD.Edit) Name(#SearchString) Displayposition(3) Label('Label') Parent(#COM_OWNER) Tabposition(1) Top(20) Appearance(None) Helperposition(None) Icon('search') Labelposition(None) Width(964) Height(40) Placeholder('Search') Themedrawstyle('Card+ForegroundTheme') Left(228)
+    Define_Com Class(#PRIM_MD.AppDrawer) Name(#AppDrawer) Displayposition(1) Tabposition(3) Height(800) Width(228) Layoutmanager(#LayoutAppDrawer) Themedrawstyle('MediumTitle') Style(#StyleAppDrawer) Parent(#COM_OWNER)
+    Define_Com Class(#PRIM_MD.ViewContainer) Name(#ViewContainer) Displayposition(2) Parent(#COM_OWNER) Tabposition(2) Themedrawstyle('Card+ForegroundTheme') Height(720) Width(964) Left(228) Top(80) Autoselect(False)
+    
+    * Controls - App Drawer
+    Define_Com Class(#PRIM_MD.Label) Name(#ApplicationName) Caption('Issues') Displayposition(1) Left(0) Parent(#AppDrawer) Tabposition(1) Top(0) Themedrawstyle('Title+DarkTitle') Width(228) Height(100) Iconalignment(CenterLeft) Iconmarginleft(10) Iconheight(32) Captionmarginright(0) Captionmarginleft(30) Captionmarginbottom(0) Captionmargintop(20) Captionalignment(TopLeft)
+    Define_Com Class(#PRIM_MD.NavButton) Name(#NavButton1) Caption('Issues') Displayposition(2) Icon('view_quilt') Left(0) Parent(#AppDrawer) Tabposition(2) Width(228) Iconmarginleft(10) Height(50) Captionalignment(CenterLeft) Captionmarginleft(20) Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Manage(#Issues) Iconopacity(50) Top(100)
+    Define_Com Class(#PRIM_MD.NavButton) Name(#NavButtonSettings) Caption('Settings') Displayposition(3) Icon('settings') Left(0) Parent(#AppDrawer) Tabposition(3) Top(150) Width(228) Iconmarginleft(10) Height(50) Captionalignment(CenterLeft) Captionmarginleft(20) Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Iconopacity(50) Manage(#Settings) Themedrawstyle('TopDivider')
+    Define_Com Class(#PRIM_MD.NavButton) Name(#NavButtonSignOut) Caption('Sign Out') Displayposition(4) Icon('exit_to_app') Left(0) Parent(#AppDrawer) Tabposition(4) Top(200) Width(228) Iconmarginleft(10) Height(50) Captionalignment(CenterLeft) Captionmarginleft(20) Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Iconopacity(50)
+    
+    * Views
+    Define_Com Class(#D2_Issues) Name(#Issues) Parent(#ViewContainer) Height(718) Left(320) Width(962)
+    Define_Com Class(#D2_Settings) Name(#Settings) Displayposition(2) Parent(#ViewContainer) Caption('Settings') Height(718) Width(962) Left(640) Tabposition(2)
+    
+    * SignIn Dialog
+    Define_Com Class(#D2_SignIn) Name(#SignIn)
+    
+    * ************** *
+    * Event Routines *
+    * ************** *
+    
+    Evtroutine Handling(#COM_OWNER.Initialize)
+    
+    #SignIn.Show
+    
+    Endroutine
+    
+    Evtroutine Handling(#SignIn.Completed)
+    
+    #Issues.Show
+    
+    Endroutine
+    
+    Evtroutine Handling(#NavButtonSignOut.Click)
+    
+    Define_Com Class(#D2_Session.SignOut) Name(#SignOut)
+    
+    #SignOut.ExecuteAsync
+    
+    #ViewContainer.Clear
+    
+    #SignIn.Show
+    
+    Endroutine
+    
+    Evtroutine Handling(#SYS_WEB.DeviceChanged)
+    
+    If (#SYS_WEB.Device = Mobile)
+    
+    #AppDrawer.DrawerStyle := SlideInLeft
+    
+    #LayoutMainColumn1.Width := 0
+    
+    #SearchString.Icon := "menu"
+    
+    Else
+    
+    #AppDrawer.DrawerStyle := Permanent
+    
+    #LayoutMainColumn1.Width := 220
+    
+    #SearchString.Icon := "search"
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#SearchString.IconClick)
+    
+    If (#SYS_WEB.Device = Mobile)
+    
+    #AppDrawer.ToggleDrawer
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#SearchString.AutoSuggest)
+    
+    Set Com(#Issues) Filter(#SearchString)
+    
+    Endroutine
+    
+    Evtroutine Handling(#ViewContainer.ActiveViewChanged)
+    
+    #SearchString := ""
+    
+    Endroutine
+    
+    End_Com
+
+  Components:
+  - D2_Issues
+  - D2_IssuesDetails
+  - D2_IssuesServer
+  - D2_Session
+  - D2_SignIn
+  - D2_Settings
+
+  Offline Support:    No
+  Allow Zoom:         No
+
+  Loading Screen:
+    Image:              Spinner

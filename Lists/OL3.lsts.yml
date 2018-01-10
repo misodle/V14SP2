@@ -1,0 +1,7 @@
+﻿List:
+  Name:               TEST
+  Stored As:          Repository
+
+  Objects:
+  - a001:
+      Type:               Web Page

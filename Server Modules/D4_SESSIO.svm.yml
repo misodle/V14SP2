@@ -1,0 +1,38 @@
+﻿ServerModule:
+  Name:               D4_Session
+  Target Platform:    Windows/IBM i/Linux
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Application Session"
+
+  - FRA:
+      Description:        "Application Session"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_SRVM) Sessionidentifier('D4_SESSION')
+    
+    Define Field(#D4_UserName) Type(*STRING)
+    Define Field(#D4_Password) Type(*STRING)
+    Define Field(#D4_ReturnCode) Type(*CHAR) Length(2)
+    
+    Srvroutine Name(SignIn)
+    Field_Map For(*INPUT) Field(#D4_UserName) Parameter_Name(UserName)
+    Field_Map For(*INPUT) Field(#D4_Password) Parameter_Name(Password)
+    Field_Map For(*OUTPUT) Field(#D4_ReturnCode) Parameter_Name(ReturnCode)
+    
+    * TODO: Check username and password
+    
+    #COM_OWNER.StartSession Timeout(3600)
+    
+    #D4_ReturnCode := OK
+    
+    Endroutine
+    
+    Srvroutine Name(SignOut) Session(*REQUIRED)
+    
+    #COM_OWNER.EndSession
+    
+    Endroutine
+    
+    End_Com
