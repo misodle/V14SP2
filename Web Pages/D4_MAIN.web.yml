@@ -12,6 +12,8 @@
   Source: |
     Begin_Com Role(*EXTENDS #PRIM_WEB) Theme(#SYS_THEME<MaterialDesignGreen>) Layoutmanager(#LayoutMain) Style(#StyleMain)
     
+    * dummy change...
+    
     * Styles
     Define_Com Class(#PRIM_VS.Style) Name(#StyleAppDrawer) Borderright(0)
     Define_Com Class(#PRIM_VS.Style) Name(#StyleHeader) Backgroundbrush(#BrushHeader)
@@ -44,19 +46,19 @@
     
     * Controls - Main
     Define_Com Class(#PRIM_PANL) Name(#PanelHeader) Displayposition(4) Height(100) Parent(#COM_OWNER) Tabposition(4) Tabstop(False) Top(0) Width(1200) Left(0) Style(#StyleHeader)
-    Define_Com Class(#PRIM_MD.Edit) Name(#SearchString) Displayposition(3) Label('Label') Parent(#COM_OWNER) Tabposition(1) Top(20) Appearance(None) Helperposition(None) Icon('search') Labelposition(None) Width(960) Height(40) Placeholder('Search') Themedrawstyle('Card+ForegroundTheme') Left(230)
-    Define_Com Class(#PRIM_MD.AppDrawer) Name(#AppDrawer) Displayposition(1) Tabposition(3) Tabstop(False) Height(800) Width(230) Layoutmanager(#LayoutAppDrawer) Themedrawstyle('MediumTitle') Style(#StyleAppDrawer) Parent(#COM_OWNER)
-    Define_Com Class(#PRIM_MD.ViewContainer) Name(#ViewContainer) Displayposition(2) Parent(#COM_OWNER) Tabposition(2) Tabstop(False) Themedrawstyle('Card+ForegroundTheme') Height(720) Width(960) Left(230) Top(80) Autoselect(False)
+    Define_Com Class(#PRIM_MD.Edit) Name(#SearchString) Displayposition(3) Label('Label') Parent(#COM_OWNER) Tabposition(1) Top(20) Appearance(None) Helperposition(None) Icon('search') Labelposition(None) Width(964) Height(40) Placeholder('Search') Themedrawstyle('Card+ForegroundTheme') Left(228)
+    Define_Com Class(#PRIM_MD.AppDrawer) Name(#AppDrawer) Displayposition(1) Tabposition(3) Height(800) Width(228) Layoutmanager(#LayoutAppDrawer) Themedrawstyle('MediumTitle') Style(#StyleAppDrawer) Parent(#COM_OWNER)
+    Define_Com Class(#PRIM_MD.ViewContainer) Name(#ViewContainer) Displayposition(2) Parent(#COM_OWNER) Tabposition(2) Themedrawstyle('Card+ForegroundTheme') Height(720) Width(964) Left(228) Top(80) Autoselect(False)
     
     * Controls - App Drawer
-    Define_Com Class(#PRIM_MD.Label) Name(#ApplicationName) Caption('Issues3') Displayposition(1) Left(0) Parent(#AppDrawer) Tabposition(1) Tabstop(False) Top(0) Themedrawstyle('Title+DarkTitle') Width(230) Height(100) Iconalignment(CenterLeft) Iconmarginleft(10) Iconheight(32) Captionmarginright(0) Captionmarginleft(30) Captionmarginbottom(0) Captionmargintop(20) Captionalignment(TopLeft)
-    Define_Com Class(#PRIM_MD.NavButton) Name(#NavButton1) Caption('Issues') Displayposition(2) Icon('view_quilt') Left(0) Parent(#AppDrawer) Tabposition(2) Width(230) Iconmarginleft(10) Height(50) Captionalignment(CenterLeft) Captionmarginleft(20) Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Manage(#Issues) Iconopacity(50)
-    Define_Com Class(#PRIM_MD.NavButton) Name(#NavButtonSettings) Caption('Settings') Displayposition(3) Icon('settings') Left(0) Parent(#AppDrawer) Tabposition(3) Top(300) Width(230) Iconmarginleft(10) Height(50) Captionalignment(CenterLeft) Captionmarginleft(20) Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Iconopacity(50) Manage(#Settings) Themedrawstyle('TopDivider')
-    Define_Com Class(#PRIM_MD.NavButton) Name(#NavButtonSignOut) Caption('Sign Out') Displayposition(4) Icon('exit_to_app') Left(0) Parent(#AppDrawer) Tabposition(4) Top(300) Width(230) Iconmarginleft(10) Height(50) Captionalignment(CenterLeft) Captionmarginleft(20) Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Iconopacity(50)
+    Define_Com Class(#PRIM_MD.Label) Name(#ApplicationName) Caption('Issues3') Displayposition(1) Left(0) Parent(#AppDrawer) Tabposition(1) Top(0) Themedrawstyle('Title+DarkTitle') Width(228) Height(100) Iconalignment(CenterLeft) Iconmarginleft(10) Iconheight(32) Captionmarginright(0) Captionmarginleft(30) Captionmarginbottom(0) Captionmargintop(20) Captionalignment(TopLeft)
+    Define_Com Class(#PRIM_MD.NavButton) Name(#NavButton1) Caption('Issues') Displayposition(2) Icon('view_quilt') Left(0) Parent(#AppDrawer) Tabposition(2) Width(228) Iconmarginleft(10) Height(50) Captionalignment(CenterLeft) Captionmarginleft(20) Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Manage(#Issues) Iconopacity(50) Top(100)
+    Define_Com Class(#PRIM_MD.NavButton) Name(#NavButtonSettings) Caption('Settings') Displayposition(3) Icon('settings') Left(0) Parent(#AppDrawer) Tabposition(3) Top(150) Width(228) Iconmarginleft(10) Height(50) Captionalignment(CenterLeft) Captionmarginleft(20) Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Iconopacity(50) Manage(#Settings) Themedrawstyle('TopDivider')
+    Define_Com Class(#PRIM_MD.NavButton) Name(#NavButtonSignOut) Caption('Sign Out') Displayposition(4) Icon('exit_to_app') Left(0) Parent(#AppDrawer) Tabposition(4) Top(200) Width(228) Iconmarginleft(10) Height(50) Captionalignment(CenterLeft) Captionmarginleft(20) Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Iconopacity(50)
     
     * Views
-    Define_Com Class(#D4_Issues) Name(#Issues) Parent(#ViewContainer) Tabstop(False) Displayposition(1)
-    Define_Com Class(#D4_Settings) Name(#Settings) Displayposition(3) Parent(#ViewContainer) Caption('Settings') Height(412) Width(920) Left(612) Tabposition(3)
+    Define_Com Class(#D4_Issues) Name(#Issues) Parent(#ViewContainer) Height(718) Left(320) Width(962)
+    Define_Com Class(#D4_Settings) Name(#Settings) Displayposition(2) Parent(#ViewContainer) Caption('Settings') Height(718) Width(962) Left(640) Tabposition(2)
     
     * SignIn Dialog
     Define_Com Class(#D4_SignIn) Name(#SignIn)
